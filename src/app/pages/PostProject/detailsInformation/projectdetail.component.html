@@ -1,0 +1,63 @@
+
+<div class="row">
+    <img src="assets/images/ethereum.jpg" class="img-fluid" alt="Responsive image" style="width:100%;height:50%" >
+</div>
+    <br>
+  <div class="row">
+    <div class="col-md-9 offset-md-1">
+    <nb-card>
+        <nb-card-header>
+              <div class="font-row font-secondary">
+                <div style="text-align:center">
+                    <div class="header">
+                            <div class="name bold text-success">{{_project.Title}}</div>
+                    </div>
+                </div>
+            </div>
+          </nb-card-header>
+        <nb-card-body>
+        <div class="header">
+          <h6>Project Details</h6>
+        </div>
+          
+           <div class="row" (click)="DetailSelectionButton(1)">
+             <div class="col-md-9">
+               <nb-card>
+                <nb-card-header>
+                  Basic
+                </nb-card-header>
+                <nb-card-body>
+                  Add an image, set your funding goal, and more.
+                </nb-card-body>
+               </nb-card>
+             </div>
+           </div>
+           <div class="row" (click)="DetailSelectionButton(3)">
+             <div class="col-md-9">
+               <nb-card>
+                <nb-card-header>
+                  Reward
+                </nb-card-header>
+                <nb-card-body>
+                  Set your rewards and shipping costs.
+                </nb-card-body>
+               </nb-card>
+             </div>
+           </div>
+           <div class="row" (click)="DetailSelectionButton(3)">
+             <div class="col-md-9">
+               <nb-card>
+                <nb-card-header>
+                  Story
+                </nb-card-header>
+                <nb-card-body>
+                  Add a video and detailed project description.
+                </nb-card-body>
+               </nb-card>
+             </div>
+           </div>
+
+        </nb-card-body>
+    </nb-card>
+  </div>
+</div>

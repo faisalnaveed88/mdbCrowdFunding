@@ -1,0 +1,246 @@
+
+
+<div class="row">
+  <div class="offset-md-9">
+    <button class="btn btn-success btn-demo" (click)="postproject()">Publish Project</button>
+  </div>
+</div>
+<div class="row">
+  {{modelproject.Title}} {{modelproject.ShortDescription}} {{modelproject.FundingDuration}} {{modelproject.FundingGoal}}
+  <div class="col-md-12">
+    <nb-card>
+      <nb-tabset>
+        <nb-tab tabTitle="Basics">
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card>
+
+                <nb-card-header>Image</nb-card-header>
+                <nb-card-body>
+
+
+                  <img [src]="imageurl" (load)="handleImageLoad()" [class.loaded]="imageLoaded" />
+
+
+                  <image-upload [uploadedFiles]="images" (uploadFinished)="imageUpload($event)" [extensions]="['jpeg','mp4']"></image-upload>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card>
+                <nb-card-header>ProjectTitle</nb-card-header>
+                <nb-card-body>
+
+                  <div class="input-group">
+                    <input type="text" placeholder="Project Title" class="form-control" [(ngModel)]="modelproject.Title" value="jkjdf" />
+                  </div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card>
+                <nb-card-header>Short blurb</nb-card-header>
+                <nb-card-body>
+
+                  <div class="input-group">
+                    <textarea rows="3" placeholder="Write a short blurb 3-4 lines" class="form-control" [(ngModel)]="modelproject.ShortDescription"></textarea>
+                  </div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card>
+                <nb-card-header>Category</nb-card-header>
+                <nb-card-body>
+
+                  <div class="form-group">
+                    <label>Choose a category</label>
+                    <div class="form-group">
+                      <select class="form-control" [formControl]="Category" >
+                            <option>Technology</option>
+                            <option>Nature</option>
+                            <option>Life</option>
+                            <option>Electronics</option>
+                            <option>Life</option>
+                        </select>
+                    </div>
+                  </div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card>
+                <nb-card-header>Project Loucation</nb-card-header>
+                <nb-card-body>
+
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Loucation">
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger">
+                        Search
+                        </button>
+                    </span>
+                  </div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card class="inline-form-card " size="medium">
+                <nb-card-header>Funding Duration</nb-card-header>
+                <nb-card-body>
+
+                  <form class="form-inline row">
+                    <div class="form-group">
+                      <div class="form-check">
+                        <label class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="gridRadios" (click)="toggleFundingDuration()" checked="true">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Number of Days</span>
+                            </label>
+                      </div>
+                      <div class="form-check">
+                        <label class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="gridRadios"  (click)="toggleFundingDuration()" >
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">End of Date & Time</span>
+                            </label>
+                      </div>
+                    </div>
+
+                  </form>
+
+
+
+
+                  <div class="row col-sm-6" *ngIf="ShowNumberOfdays">
+                    <input type="text" placeholder="e.g 1 " class="form-control" [(ngModel)]="modelproject.FundingDuration" />
+                    <small class="form-text">Project with days less then 4 are successful.
+                    </small>
+                  </div>
+
+                  <form class="row" *ngIf="ShowDatePicker">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelproject.FundingDuration" ngbDatepicker #d="ngbDatepicker">
+                        <button (click)="d.toggle()" type="button" class="btn btn-success btn-icon">pick date
+                           
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card>
+                <nb-card-header>Funding Goal</nb-card-header>
+                <nb-card-body>
+
+
+                  <div class="row col-sm-6">
+                    <input type="text" placeholder="e.g 1 Eth " class="form-control" [(ngModel)]="modelproject.FundingGoal" />
+                    <small class="form-text">Write reachable amount
+                    </small>
+                  </div>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+
+
+        </nb-tab>
+        <nb-tab tabTitle="Rewards" [active]="ShowTab2">
+          
+          
+          <div *ngFor="let reward of rewardlist" >
+
+
+            <RewardComponent [modelReward]= reward></RewardComponent>
+       
+          </div>
+          <div class="row">
+            <div class="col-md-8 offset-md-4">
+
+              <button class="btn btn-success btn-demo" (click)="addproject()">ADD</button>
+
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Story" [active]="ShowTab3">
+          {{modelStory.Description}} {{modelStory.vediourl}} {{modelStory.RiskAndChallanges}}
+          <div class="row">
+            <div class="col-md-9 offset-md-1">
+              <nb-card>
+                <nb-card-header>
+                  Project video
+                </nb-card-header>
+                <nb-card-body>
+
+
+                  <video class="library" controls preload="auto" data-config="some-js-object-here" id="myvedioplayer">
+                    <source [src]="vediourl" type='video/mp4'>
+                  </video>
+                  <input type="file" name="photo" ng2FileSelect [uploader]="uploader" accept="video/mp4"
+                  />
+                  <button type="button" class="btn btn-success btn-s" (click)="uploadVedio()" [disabled]="!uploader.getNotUploadedItems().length">
+                 Upload
+                </button>
+
+
+
+
+                </nb-card-body>
+              </nb-card>
+
+              <nb-card>
+                <nb-card-header>
+                  Description
+                </nb-card-header>
+                <nb-card-body>
+               <div class="input-group">
+                    <textarea rows="3" placeholder="Write a discription" class="form-control" [(ngModel)]="modelStory.Description"></textarea>
+                  </div>
+                </nb-card-body>
+              </nb-card>
+              <nb-card>
+                <nb-card-header>
+                  Risk And Challenges
+                </nb-card-header>
+                <nb-card-body>
+                  <div class="input-group">
+                    <textarea rows="3" placeholder="Write a short blurb 3-4 lines" class="form-control" [(ngModel)]="modelStory.RiskAndChallanges"></textarea>
+                  </div>
+                </nb-card-body>
+
+
+              </nb-card>
+            </div>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card>
+  </div>
+
+</div>
+

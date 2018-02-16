@@ -1,0 +1,18 @@
+
+
+<div *ngIf= "varshowProjectInitialInformation">
+ <initial-information (continueButton) = funcshowProjectDetail($event)></initial-information>
+
+</div>
+<div *ngIf= "varshowProjectDetail">
+  
+ <project-detail (DetailSelection) = funcshowProjectDetailTabs($event) [_project]="InitialProjectValues"></project-detail>
+</div>
+<div *ngIf= "varshowProjectDetailTabs">
+  
+ <project-detail-tabs (modelprojectEventEmitter) = projectReceiver($event) [InitialInformationProject]="InitialProjectValues"></project-detail-tabs>
+</div>
+
+<web3App></web3App>
+
+
